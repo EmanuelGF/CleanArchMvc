@@ -1,5 +1,7 @@
 ﻿using CleanArchMvc.Domain.Entities;
 using CleanArchMvc.Domain.Interfaces;
+using CleanArchMvc.Infra.Data.Context;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace CleanArchMvc.Infra.Data.Repositories
 {
-    class CategoryRepository : ICategoryRepository
+    public class CategoryRepository : ICategoryRepository
     {
         //ctor
         //Implementing dependency injection
         private ApplicationDbContext _categoryContext;
-        public ProductRepository(ApplicationDbContext context)
+        public CategoryRepository(ApplicationDbContext context)
         {
             _categoryContext = context;
 
