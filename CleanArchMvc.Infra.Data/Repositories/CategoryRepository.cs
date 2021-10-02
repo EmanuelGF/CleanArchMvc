@@ -14,7 +14,7 @@ namespace CleanArchMvc.Infra.Data.Repositories
     {
         //ctor
         //Implementing dependency injection
-        private ApplicationDbContext _categoryContext;
+        private readonly ApplicationDbContext _categoryContext;
         public CategoryRepository(ApplicationDbContext context)
         {
             _categoryContext = context;

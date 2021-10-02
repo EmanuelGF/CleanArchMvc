@@ -1,8 +1,23 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<!--
+  This project refers to the application layer. It will function as an abstraction
+  layer service to provide the communication methods to the other layers.
+  
+  Here are defined the business rules of the application, DTO's, the services and 
+  mappings of the objects.
+  
+  Accessing Entities directly is not advised, so DTO's are used. To map the DTO with 
+  entities and vice versa AutoMapper is used.
+  -->
 
+<Project Sdk="Microsoft.NET.Sdk">
+  
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CleanArchMvc.Domain\CleanArchMvc.Domain.csproj" />
