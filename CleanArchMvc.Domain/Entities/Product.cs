@@ -16,23 +16,23 @@ namespace CleanArchMvc.Domain.Entities
         {
             DomainExceptionValidation.When(id < 0, "Invalid Id value.");
             Id = id;
-            validateDomain(name, description, price, stock, image);
+            ValidateDomain(name, description, price, stock, image);
         }
 
         public Product(string name, string description, decimal price, int stock, string image)
         {
-            validateDomain(name, description, price, stock, image);
+            ValidateDomain(name, description, price, stock, image);
         }
 
         //Methods
 
         public void Update(string name, string description, decimal price, int stock, string image, int categoryId)
         {
-            validateDomain(name, description, price, stock, image);
+            ValidateDomain(name, description, price, stock, image);
             CategoryId = categoryId;
         }
 
-        private void validateDomain(string name, string description, decimal price, int stock, string image)
+        private void ValidateDomain(string name, string description, decimal price, int stock, string image)
         {
             DomainExceptionValidation.When(string.IsNullOrEmpty(name),
                 "Invalid name. Name is required.");
