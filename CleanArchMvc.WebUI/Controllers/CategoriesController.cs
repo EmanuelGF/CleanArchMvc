@@ -1,13 +1,13 @@
 ﻿using CleanArchMvc.Application.DTOs;
 using CleanArchMvc.Application.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CleanArchMvc.WebUI.Controllers
 {
+    [Authorize]
     public class CategoriesController : Controller
     {
         //Injecting the necessary services.
@@ -47,9 +47,17 @@ namespace CleanArchMvc.WebUI.Controllers
         [HttpGet()]
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null) return NotFound();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
             var categoryDto = await _categoryService.GetById(id);
-            if (categoryDto == null) return NotFound();
+            if (categoryDto == null)
+            {
+                return NotFound();
+            }
+
             return View(categoryDto);
         }
 
@@ -61,7 +69,8 @@ namespace CleanArchMvc.WebUI.Controllers
                 try
                 {
                     await _categoryService.Update(categoryDto);
-                } catch (Exception)
+                }
+                catch (Exception)
                 {
                     throw;
                 }
@@ -71,17 +80,26 @@ namespace CleanArchMvc.WebUI.Controllers
         }
 
         //Delete
+        [Authorize(Roles = "Admin")]
         [HttpGet()]
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null) return NotFound();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
             var categoryDto = await _categoryService.GetById(id);
-            if (categoryDto == null) return NotFound();
+            if (categoryDto == null)
+            {
+                return NotFound();
+            }
+
             return View(categoryDto);
         }
 
         //Another action name is created to prevent method conflict.
-        [HttpPost(), ActionName("Delete")] 
+        [HttpPost(), ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             await _categoryService.Remove(id);
@@ -91,9 +109,17 @@ namespace CleanArchMvc.WebUI.Controllers
         //Details
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null) return NotFound();
+            if (id == null)
+            {
+                return NotFound();
+            }
+
             var categoryDto = await _categoryService.GetById(id);
-            if (categoryDto == null) return NotFound();
+            if (categoryDto == null)
+            {
+                return NotFound();
+            }
+
             return View(categoryDto);
         }
     }
