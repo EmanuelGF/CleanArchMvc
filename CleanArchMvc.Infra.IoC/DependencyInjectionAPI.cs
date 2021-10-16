@@ -15,17 +15,10 @@ using System;
 
 namespace CleanArchMvc.Infra.IoC
 {
-
-    /*
-     This static class will be in charge of handling the dependency injection fot the 
-     project. The services created here are then added to the UI.
-
-    Note: Also this is part of a cross cutting project layer.
-     */
-    public static class DependencyInjection
+    public static class DependencyInjectionAPI
     {
         //This is an extension method for the interface IServiceCollection for the built in DI framework.
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services,
+        public static IServiceCollection AddInfrastructureAPI(this IServiceCollection services,
             IConfiguration configuration)
         {
             //Infra.Data
@@ -53,13 +46,7 @@ namespace CleanArchMvc.Infra.IoC
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            //When a user access is not permited he is redirectd to the login page.
-            services.ConfigureApplicationCookie(options => options.AccessDeniedPath = "/Account/Login");
-
             services.AddScoped<IAuthenticate, AuthenticateService>();
-            services.AddScoped<ISeedUserRoleInitial, SeedUserRoleInitial>();
-
-
 
             return services;
         }
