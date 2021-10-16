@@ -22,15 +22,18 @@ namespace CleanArchMvc.API
         {
             services.AddInfrastructureAPI(Configuration);
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "CleanArchMvc.API", Version = "v1" });
-            });
+
+            //swagger
+            services.AddInfrastructureSwagger();
 
             //services.AddControllers().AddJsonOptions(options =>
             //{
             //    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
             //});
+
+            //jwt
+            services.AddInfrastructureJWT(Configuration);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,9 +48,12 @@ namespace CleanArchMvc.API
 
             app.UseHttpsRedirection();
 
-            app.UseRouting();
+            app.UseStatusCodePages();
 
-            app.UseAuthorization();
+            //order is important
+            app.UseRouting(); //1
+            app.UseAuthentication();//2
+            app.UseAuthorization(); //3
 
             app.UseEndpoints(endpoints =>
             {
